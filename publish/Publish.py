@@ -19,7 +19,7 @@ def main():
     print('=             Sensor de temperatura (Publish)             =')
     print('===========================================================')
     print('')
-    ip = raw_input('Informe o ip do Broker: ')
+    ip = raw_input('Informe o ip/site do Broker: ')
     print('')
 
     topico = "casa/sala/temperatura"
