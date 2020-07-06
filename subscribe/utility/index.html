@@ -1,0 +1,340 @@
+<html>
+
+<head>
+  <title>Trab IoT - SD 2020</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <!-- Custom Styles theme -->
+  <meta charset="UTF-8">
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+  <div class="container">
+
+
+
+    <center>
+      <p style=" font-size: 30 ; color: white">S. DISTRIBUIDOS 2020</p>
+    </center>
+    <center>
+      <p style=" font-size: 20 ; color:white">Marcos K. - Willian P. - William H. </p>
+    </center>
+
+    <!-- Connection panel -->
+    <div class="row">
+      <div class="col-md-12">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <span id="connectionStatus">Conexao - Desconectado.</span>
+          </div>
+          <div class="panel-body" id="serverCollapse">
+            <form>
+              <div class="row">
+
+                <div class="col-lg-5">
+                  <div class="form-group">
+                    <label for="hostInput">Host</label>
+                    <input type="text" class="form-control" id="hostInput" value="mqtt.eclipse.org">
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="portInput">Porta</label>
+                    <input type="text" class="form-control" id="portInput" value="443">
+                  </div>
+
+                </div>
+                <div class="col-lg-4">
+                  <div class="form-group">
+                    <label for="clientIdInput">Cliente ID</label>
+                    <input type="text" class="form-control" id="clientIdInput" value="javascript-client">
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="clientConnectButton"></label>
+                    <a id="clientConnectButton" class="btn btn-default" onclick="connectionToggle();">Conectar </a>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label for="pathInput">Caminho</label>
+                    <input type="text" class="form-control" id="pathInput" value="/mqtt">
+                  </div>
+                </div>
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label for="userInput">Usuario</label>
+                    <input type="text" class="form-control" id="userInput" value="">
+                  </div>
+                </div>
+
+                <div class="col-lg-2">
+                  <div class="form-group">
+                    <label for="passInput">Senha</label>
+                    <input type="password" class="form-control" id="passInput" value="">
+                  </div>
+                </div>
+
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="keepAliveInput">Tempo de Vida</label>
+                    <input type="text" class="form-control" id="keepAliveInput" value="60">
+                  </div>
+                </div>
+
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="timeoutInput">Timeout</label>
+                    <input type="text" class="form-control" id="timeoutInput" value="3">
+                  </div>
+                </div>
+
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="tlsInput">TLS</label>
+                    <input type="checkbox" class="special-checkbox" id="tlsInput" value="" checked>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="cleanSessionInput">Limpar Sessao</label>
+                    <input type="checkbox" class="special-checkbox" id="cleanSessionInput" value="" checked>
+                  </div>
+
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+                    <label for="automaticReconnectInput">Reconectar automatico</label>
+                    <input type="checkbox" class="special-checkbox" id="automaticReconnectInput" value="" checked>
+                  </div>
+                </div>
+              </div>
+              <hr>
+              <div class="row">
+                <div class="col-lg-3">
+                  <div class="form-group">
+
+                    <input style="display:none;" type="hidden" class="form-control" id="lwtInput">
+                  </div>
+                </div>
+
+                <div class="col-lg-1">
+                  <div class="form-group">
+
+                    <select style="display:none;" class="form-control" id="lwQosInput">
+                      <option>0</option>
+                      <option>1</option>
+                      <option>2</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="col-lg-1">
+                  <div class="form-group">
+
+                    <input type="hidden" class="special-checkbox" id="lwRetainInput" value="">
+                  </div>
+                </div>
+                <div class="col-lg-7">
+                  <div class="form-group">
+
+                    <textarea style="display:none;" class="form-control" id="lwMInput" rows="3"></textarea>
+                  </div>
+                </div>
+              </div>
+          </div>
+          </form>
+        </div>
+        <!-- End of Connection panel -->
+
+
+        <div class="row ">
+          <!-- Subscription panel -->
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Inscricao
+              </div>
+              <div class="panel-body" id="subscribeCollapse">
+
+                <form class="form-horizontal">
+
+                  <div class="form-group">
+                    <label for="subscribeTopicInput" class="col-sm-2 control-label">Topico</label>
+                    <div class="col-sm-10">
+                      <input type="text" class="form-control" id="subscribeTopicInput" value="casa/sala/temperatura"
+                        disabled>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="subscribeQosInput" class="col-sm-2 control-label">QoS</label>
+                    <div class="col-sm-10">
+                      <select class="form-control" id="subscribeQosInput" disabled>
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                      <button id="subscribeButton" type="button" class="btn btn-default" onclick="subscribe();"
+                        disabled>Inscrever-se</button>
+                      <button id="unsubscribeButton" type="button" class="btn btn-default" onclick="unsubscribe();"
+                        disabled>Cancelar Inscrição</button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End of Subscription panel -->
+          <!-- Publish panel -->
+          <div class="col-md-6">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                Publicar mensagem
+              </div>
+              <div class="panel-body" id="publishCollapse">
+                <form>
+                  <div class="row">
+                    <div class="col-lg-5">
+                      <div class="form-group">
+                        <label for="publishTopicInput">Tópico</label>
+                        <input type="text" class="form-control" id="publishTopicInput" value="Nota 3" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-3">
+                      <div class="form-group">
+                        <label for="publishQosInput">QoS</label>
+                        <select class="form-control" id="publishQosInput" disabled>
+                          <option>0</option>
+                          <option>1</option>
+                          <option>2</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-lg-1">
+                      <div class="form-group">
+                        <label for="publishRetainInput">Reter</label>
+                        <input type="checkbox" class="special-checkbox" id="publishRetainInput" value="" disabled>
+                      </div>
+                    </div>
+                    <div class="col-lg-1">
+                      <div class="form-group">
+                        <label for="publishButton"></label>
+                        <button id="publishButton" type="button" class="btn btn-default" onclick="publish();"
+                          disabled>Publicar</a>
+                      </div>
+                    </div>
+
+
+                  </div>
+
+                  <div class="row">
+                    <div class="col-lg-12">
+                      <div class="form-group">
+                        <label for="publishMessageInput">Mensagem</label>
+                        <textarea class="form-control" id="publishMessageInput" rows="3"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          <!-- End of Publish panel -->
+        </div>
+        <div class="row">
+
+
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <a class="chevron-toggle" data-toggle="collapse" data-target="#subscriptionsCollapse"
+                  href="#collapseOne">
+                  Ultimas Mensagens
+                </a>
+              </div>
+              <div class="panel-body collapse in fixed-height-panel" id="subscriptionsCollapse">
+                <table class="table table-hover table-condensed tableSection" id="lastMessageTable">
+                  <thead>
+                    <tr>
+                      <th>Topico</th>
+                      <th>Carga util</th>
+                      <th>Tempo</th>
+                      <th>QoS</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+
+                  </tbody>
+
+                </table>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <a class="chevron-toggle" data-toggle="collapse" data-target="#historyCollapse" href="#collapseOne">
+                  Histórico
+                </a>
+              </div>
+              <div class="panel-body collapse in fixed-height-panel" id="historyCollapse">
+                <span class="right"><a href="#" onclick="clearHistory()">Limpar histórico</a></span>
+                <table class="table table-hover table-condensed  tableSection" id="incomingMessageTable">
+
+                  <thead>
+                    <tr>
+                      <th>Tópico</th>
+                      <th>Payload</th>
+                      <th>Time</th>
+                      <th>Qos</th>
+                    </tr>
+                  </thead>
+                  <tbody></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <a class="chevron-toggle" data-toggle="collapse" data-target="#consoleCollapse" href="#collapseOne">
+                  Console
+                </a>
+              </div>
+              <div class="panel-body collapse in fixed-height-panel-pre" id="consoleCollapse">
+                <pre id="consolePre" class="pre-scrollable"></pre>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Source Paho MQTT Client-->
+      <script src="../src/paho-mqtt.js"></script>
+      <!--<script src="../src/paho-mqtt.js"></script>-->
+
+      <!-- Utility Javascript -->
+      <script src="utility.js"></script>
+
+      <!-- Javascript used for Bootstrap Theme -->
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</body>
+
+</html>
