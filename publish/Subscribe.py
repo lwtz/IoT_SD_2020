@@ -23,9 +23,8 @@ def cls():
 def main():
     cls()
 
-    print("================== MQTT - Broker Mosquitto - Python =================")
     print('=====================================================================')
-    print('=            Simulador Sensor de temperatura (Subscribe)            =')
+    print('=            Sensor de temperatura (Subscribe)            =')
     print('=====================================================================')
     print('')
     ip = raw_input('Informe o ip do Broker: ')
